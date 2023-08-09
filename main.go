@@ -3,6 +3,7 @@ package main
 import (
 	"ZuzinhoBot/errlog"
 	"ZuzinhoBot/markup/usermarkup"
+	"ZuzinhoBot/markup/usermarkup/markupvalues"
 	"ZuzinhoBot/token"
 	"ZuzinhoBot/users"
 	api "github.com/go-telegram-bot-api/telegram-bot-api"
@@ -37,7 +38,7 @@ func main() {
 				log.Printf("User %s has role 'User'", firstName)
 				if !isStart {
 					msg := api.NewMessage(sentMsg.Chat.ID, "Привет")
-					msg.ReplyMarkup = usermarkup.Default()
+					msg.ReplyMarkup = markupvalues.Default()
 
 					_, err = bot.Send(msg)
 					errlog.LogOnErr(err)
@@ -57,9 +58,10 @@ func main() {
 		} else if update.CallbackQuery != nil {
 			sentQuery := update.CallbackQuery
 			firstName := sentQuery.Message.Chat.FirstName
-			log.Printf("User %s sent query with text '%s'", firstName, sentQuery.Data)
+			log.Printf("User %s sent query with data '%s'", firstName, sentQuery.Data)
 			switch users.GetRole(sentQuery.Message.Chat.FirstName) {
 			case users.User:
+				log.Printf("User %s has role 'User'", firstName)
 				msgSlice, err := usermarkup.HandleDefault(sentQuery, bot)
 				errlog.LogOnErr(err)
 
@@ -70,7 +72,7 @@ func main() {
 					time.Sleep(time.Second)
 				}
 				lastMsg := api.NewMessage(sentQuery.Message.Chat.ID, "Еще?")
-				lastMsg.ReplyMarkup = usermarkup.Default()
+				lastMsg.ReplyMarkup = markupvalues.Default()
 				_, err = bot.Send(lastMsg)
 				errlog.LogOnErr(err)
 			}
