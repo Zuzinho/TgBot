@@ -8,17 +8,17 @@ import (
 	api "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-func HandleDefault(update api.Update, bot *api.BotAPI) ([]*api.MessageConfig, error) {
-	callback := api.NewCallback(update.CallbackQuery.ID, update.CallbackQuery.Data)
+func HandleDefault(query *api.CallbackQuery, bot *api.BotAPI) ([]*api.MessageConfig, error) {
+	callback := api.NewCallback(query.ID, query.Data)
 	_, err := bot.AnswerCallbackQuery(callback)
 	if err != nil {
 		return nil, err
 	}
 
 	var msgSlice []*api.MessageConfig
-	chatId := update.CallbackQuery.Message.Chat.ID
+	chatId := query.Message.Chat.ID
 
-	switch update.CallbackQuery.Data {
+	switch query.Data {
 	case SmtTellingMarkupValue:
 		msgSlice, err = smttelling.Handle(chatId)
 	case SmtInterestMarkupValue:
