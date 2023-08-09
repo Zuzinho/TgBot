@@ -12,7 +12,6 @@ type config struct {
 }
 
 func Token() string {
-	return "6336763734:AAGXqgxjMWnksl1_hef5Drpc3UeJM1OloXA"
 	f, err := os.Open("config.json")
 	errlog.LogOnErr(err)
 
