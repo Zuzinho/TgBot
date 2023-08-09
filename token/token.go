@@ -1,27 +1,22 @@
 package token
 
 import (
-	"ZuzinhoBot/errlog"
-	"encoding/json"
-	"io"
-	"os"
+	"flag"
+	"log"
 )
 
-type config struct {
-	BotTgToken string `json:"tg_bot_token"`
-}
+func MustToken() string {
+	token := flag.String(
+		"tg_bot_token",
+		"",
+		"token for access to tg bot",
+	)
 
-func Token() string {
-	f, err := os.Open("config.json")
-	errlog.LogOnErr(err)
+	flag.Parse()
 
-	jsonStr, err := io.ReadAll(f)
-	errlog.LogOnErr(err)
+	if *token == "" {
+		log.Fatal("No token")
+	}
 
-	conf := config{}
-
-	err = json.Unmarshal(jsonStr, &conf)
-	errlog.LogOnErr(err)
-
-	return conf.BotTgToken
+	return *token
 }
