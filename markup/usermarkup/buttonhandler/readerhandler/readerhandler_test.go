@@ -1,4 +1,4 @@
-package buttonhandler_test
+package readerhandler_test
 
 import (
 	"ZuzinhoBot/markup/usermarkup/buttonhandler/smtinteresting"

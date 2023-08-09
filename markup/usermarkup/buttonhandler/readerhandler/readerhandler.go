@@ -1,4 +1,4 @@
-package buttonhandler
+package readerhandler
 
 import (
 	"bytes"
