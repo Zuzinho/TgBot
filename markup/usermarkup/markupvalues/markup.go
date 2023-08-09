@@ -1,4 +1,4 @@
-package usermarkup
+package markupvalues
 
 import (
 	api "github.com/go-telegram-bot-api/telegram-bot-api"

@@ -1,4 +1,4 @@
-package usermarkup
+package markupvalues
 
 const (
 	SmtTellingMarkupKey     = "Напиши что-нибудь"
