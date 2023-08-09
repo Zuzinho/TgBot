@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	bot, err := api.NewBotAPI(token.Token())
+	bot, err := api.NewBotAPI(token.MustToken())
 	errlog.LogOnErr(err)
 
 	bot.Debug = true
