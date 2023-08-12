@@ -20,7 +20,7 @@ func main() {
 	log.Printf("Authorized bot %s\n", bot.Self.UserName)
 
 	u := api.NewUpdate(0)
-	u.Timeout = 60
+	u.Timeout = 120
 
 	updates, err := bot.GetUpdatesChan(u)
 
