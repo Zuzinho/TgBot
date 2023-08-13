@@ -1,10 +1,10 @@
 package main
 
 import (
+	"ZuzinhoBot/env"
 	"ZuzinhoBot/errlog"
 	"ZuzinhoBot/markup/usermarkup"
 	"ZuzinhoBot/markup/usermarkup/markupvalues"
-	"ZuzinhoBot/token"
 	"ZuzinhoBot/users"
 	api "github.com/go-telegram-bot-api/telegram-bot-api"
 	"log"
@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	bot, err := api.NewBotAPI(token.MustToken())
+	bot, err := api.NewBotAPI(env.Token)
 	errlog.LogOnErr(err)
 
 	bot.Debug = true
