@@ -22,7 +22,7 @@ func init() {
 
 	Token, exists = os.LookupEnv("TG_BOT_TOKEN")
 	if !exists {
-		log.Fatal("TgBot token not found")
+		log.Println("TgBot token not found")
 	}
 
 	connString, exists := os.LookupEnv("DB_CONN_STRING")
