@@ -1,12 +1,18 @@
 package sleepingstory
 
 import (
+	"ZuzinhoBot/database/sleepingstorydb"
 	"io"
 	"strings"
 )
 
 func Story() (io.Reader, error) {
-	rd := strings.NewReader("Not\nInteresting\nStory")
+	story, err := sleepingstorydb.Story()
+	if err != nil {
+		return nil, err
+	}
+
+	rd := strings.NewReader(story)
 
 	return rd, nil
 }
