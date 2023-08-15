@@ -21,9 +21,15 @@ func (t Table) IsValid() bool {
 
 type NoTableError struct {
 	error
-	Table Table
+	table Table
 }
 
 func (err NoTableError) String() string {
-	return fmt.Sprintf("no table %s in database", err.Table)
+	return fmt.Sprintf("no table %s in database", err.table)
+}
+
+func NewNoTableError(table Table) NoTableError {
+	return NoTableError{
+		table: table,
+	}
 }
