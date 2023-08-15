@@ -1,13 +1,13 @@
 package funnystory
 
 import (
-	"ZuzinhoBot/database/funnystorydb"
+	"ZuzinhoBot/database/selector"
 	"io"
 	"strings"
 )
 
 func Story() (io.Reader, error) {
-	story, err := funnystorydb.Story()
+	story, err := selector.Select("funny_stories")
 	if err != nil {
 		return nil, err
 	}

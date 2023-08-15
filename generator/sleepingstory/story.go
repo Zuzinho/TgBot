@@ -1,13 +1,13 @@
 package sleepingstory
 
 import (
-	"ZuzinhoBot/database/sleepingstorydb"
+	"ZuzinhoBot/database/selector"
 	"io"
 	"strings"
 )
 
 func Story() (io.Reader, error) {
-	story, err := sleepingstorydb.Story()
+	story, err := selector.Select("sleeping_stories")
 	if err != nil {
 		return nil, err
 	}
