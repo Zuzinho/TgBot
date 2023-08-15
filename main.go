@@ -16,6 +16,7 @@ func main() {
 	errlog.LogOnErr(err)
 
 	log.Printf("Authorized bot %s\n", bot.Self.UserName)
+	log.Println("version - v1.1.0")
 
 	u := api.NewUpdate(0)
 
