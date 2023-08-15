@@ -1,13 +1,14 @@
 package phrase
 
 import (
+	"ZuzinhoBot/database"
 	"ZuzinhoBot/database/selector"
 	"io"
 	"strings"
 )
 
 func Phrase() (io.Reader, error) {
-	phrase, err := selector.Select("phrases")
+	phrase, err := selector.Select(database.PhrasesTableName)
 	if err != nil {
 		return nil, err
 	}
