@@ -9,9 +9,7 @@ import (
 
 func Select(table database.Table) (value string, err error) {
 	if !table.IsValid() {
-		return "", database.NoTableError{
-			Table: table,
-		}
+		return "", database.NewNoTableError(table)
 	}
 
 	conn, err := pgx.Connect(env.ConnConfig)
