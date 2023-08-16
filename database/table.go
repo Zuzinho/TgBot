@@ -2,15 +2,15 @@ package database
 
 import "fmt"
 
-type Table string
+type TableName string
 
 const (
-	PhrasesTableName         Table = "phrases"
-	SleepingStoriesTableName       = "sleeping_stories"
+	PhrasesTableName         TableName = "phrases"
+	SleepingStoriesTableName           = "sleeping_stories"
 	FunnyStoriesTableName          = "funny_stories"
 )
 
-func (t Table) IsValid() bool {
+func (t TableName) IsValid() bool {
 	switch t {
 	case PhrasesTableName, SleepingStoriesTableName, FunnyStoriesTableName:
 		return true
@@ -21,14 +21,14 @@ func (t Table) IsValid() bool {
 
 type NoTableError struct {
 	error
-	table Table
+	table TableName
 }
 
 func (err NoTableError) String() string {
 	return fmt.Sprintf("no table %s in database", err.table)
 }
 
-func NewNoTableError(table Table) NoTableError {
+func NewNoTableError(table TableName) NoTableError {
 	return NoTableError{
 		table: table,
 	}

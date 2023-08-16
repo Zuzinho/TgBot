@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func Select(table database.Table) (value string, err error) {
+func Select(table database.TableName) (value string, err error) {
 	if !table.IsValid() {
 		return "", database.NewNoTableError(table)
 	}
