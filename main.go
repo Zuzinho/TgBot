@@ -59,7 +59,12 @@ func main() {
 			switch users.GetRole(sentQuery.Message.Chat.FirstName) {
 			case users.User:
 				log.Printf("User %s has role 'User'", firstName)
-				msgSlice, err := usermarkup.HandleDefault(sentQuery, bot)
+
+				callback := api.NewCallback(sentQuery.ID, sentQuery.Data)
+				_, err := bot.AnswerCallbackQuery(callback)
+				errlog.LogOnErr(err)
+
+				msgSlice, err := usermarkup.HandleDefault(sentQuery)
 				errlog.LogOnErr(err)
 
 				for _, msg := range msgSlice {
