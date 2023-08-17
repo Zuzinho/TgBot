@@ -10,11 +10,10 @@ const (
 
 var roleByUser = map[string]Role{
 	Alena:  User,
-	Nikita: Admin,
+	Nikita: User,
 }
 
 func GetRole(userName string) Role {
-	return User
 	if r, ok := roleByUser[userName]; ok {
 		return r
 	} else {
