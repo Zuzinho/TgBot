@@ -1,8 +1,8 @@
-package keyboardvalues
+package values
 
 type KeyboardKey string
 
-type KeyboardValue int
+type KeyboardValue string
 
 const (
 	PhrasesKey       KeyboardKey = "Напиши что-нибудь"
@@ -12,8 +12,9 @@ const (
 )
 
 const (
-	PhrasesValue KeyboardValue = iota + 1
-	FactsValue
-	BoringStoriesValue
-	FunnyStoriesValue
+	PhrasesValue KeyboardValue = "Фраза"
+	FactsValue KeyboardValue = "Факт"
+	BoringStoriesValue KeyboardValue = "Заумное"
+	FunnyStoriesValue KeyboardValue = "История"
 )
+
