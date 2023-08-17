@@ -3,8 +3,8 @@ package main
 import (
 	"ZuzinhoBot/env"
 	"ZuzinhoBot/errlog"
-	"ZuzinhoBot/markup/usermarkup"
-	"ZuzinhoBot/markup/usermarkup/markupvalues"
+	"ZuzinhoBot/keyboard/handlers"
+	"ZuzinhoBot/keyboard/values"
 	"ZuzinhoBot/users"
 	api "github.com/go-telegram-bot-api/telegram-bot-api"
 	"log"
@@ -35,7 +35,7 @@ func main() {
 				log.Printf("User %s has role 'User'", firstName)
 				if !isStart {
 					msg := api.NewMessage(sentMsg.Chat.ID, "Привет")
-					msg.ReplyMarkup = markupvalues.Default()
+					msg.ReplyMarkup = values.UserKeyboard()
 
 					_, err = bot.Send(msg)
 					errlog.LogOnErr(err)
@@ -63,8 +63,7 @@ func main() {
 				callback := api.NewCallback(sentQuery.ID, sentQuery.Data)
 				_, err := bot.AnswerCallbackQuery(callback)
 				errlog.LogOnErr(err)
-
-				msgSlice, err := usermarkup.HandleDefault(sentQuery)
+				msgSlice, err := handlers.HandleUserKeyboard(values.KeyboardValue(sentQuery.Data), sentQuery.Message.Chat.ID)
 				errlog.LogOnErr(err)
 
 				for _, msg := range msgSlice {
@@ -74,7 +73,7 @@ func main() {
 					time.Sleep(time.Second)
 				}
 				lastMsg := api.NewMessage(sentQuery.Message.Chat.ID, "Еще?")
-				lastMsg.ReplyMarkup = markupvalues.Default()
+				lastMsg.ReplyMarkup = values.UserKeyboard()
 				_, err = bot.Send(lastMsg)
 				errlog.LogOnErr(err)
 			}
