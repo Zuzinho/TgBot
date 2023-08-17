@@ -1,14 +1,13 @@
-package sleepingstory
+package boringstory
 
 import (
 	"ZuzinhoBot/database"
 	"ZuzinhoBot/database/selector"
-	"io"
 	"strings"
 )
 
-func Story() (io.Reader, error) {
-	story, err := selector.Select(database.SleepingStoriesTableName)
+func Story() (*strings.Reader, error) {
+	story, err := selector.Select(database.BoringStoriesTableName)
 	if err != nil {
 		return nil, err
 	}

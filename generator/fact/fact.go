@@ -18,7 +18,7 @@ type factStruct struct {
 	} `json:"fact"`
 }
 
-func Fact() (io.Reader, error) {
+func Fact() (*strings.Reader, error) {
 	resp, err := http.Get(src)
 	if err != nil {
 		return nil, err
