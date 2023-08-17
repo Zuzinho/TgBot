@@ -5,14 +5,14 @@ import "fmt"
 type TableName string
 
 const (
-	PhrasesTableName         TableName = "phrases"
-	SleepingStoriesTableName           = "sleeping_stories"
-	FunnyStoriesTableName          = "funny_stories"
+	PhrasesTableName       TableName = "phrases"
+	BoringStoriesTableName TableName = "boring_stories"
+	FunnyStoriesTableName  TableName = "funny_stories"
 )
 
 func (t TableName) IsValid() bool {
 	switch t {
-	case PhrasesTableName, SleepingStoriesTableName, FunnyStoriesTableName:
+	case PhrasesTableName, BoringStoriesTableName, FunnyStoriesTableName:
 		return true
 	default:
 		return false
