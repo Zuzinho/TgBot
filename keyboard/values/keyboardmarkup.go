@@ -7,16 +7,16 @@ import (
 func UserKeyboard() api.InlineKeyboardMarkup {
 	return api.NewInlineKeyboardMarkup(
 		api.NewInlineKeyboardRow(
-			api.NewInlineKeyboardButtonData(string(PhrasesKey), string(PhrasesValue)),
+			api.NewInlineKeyboardButtonData(string(PhrasesUserKey), string(PhrasesUserValue)),
 		),
 		api.NewInlineKeyboardRow(
-			api.NewInlineKeyboardButtonData(string(FactsKey), string(FactsValue)),
+			api.NewInlineKeyboardButtonData(string(FactsUserKey), string(FactsUserValue)),
 		),
 		api.NewInlineKeyboardRow(
-			api.NewInlineKeyboardButtonData(string(BoringStoriesKey), string(BoringStoriesValue)),
+			api.NewInlineKeyboardButtonData(string(BoringStoriesUserKey), string(BoringStoriesUserValue)),
 		),
 		api.NewInlineKeyboardRow(
-			api.NewInlineKeyboardButtonData(string(FunnyStoriesKey), string(FunnyStoriesValue)),
+			api.NewInlineKeyboardButtonData(string(FunnyStoriesUserKey), string(FunnyStoriesUserValue)),
 		),
 	)
 }

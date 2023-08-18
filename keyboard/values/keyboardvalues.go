@@ -5,16 +5,15 @@ type KeyboardKey string
 type KeyboardValue string
 
 const (
-	PhrasesKey       KeyboardKey = "Напиши что-нибудь"
-	FactsKey         KeyboardKey = "Расскажи прикольный факт"
-	BoringStoriesKey KeyboardKey = "Расскажи что-нибудь заумное"
-	FunnyStoriesKey  KeyboardKey = "Сборник 'Моя девушка тупень'"
+	PhrasesUserKey       KeyboardKey = "Напиши что-нибудь"
+	FactsUserKey         KeyboardKey = "Расскажи прикольный факт"
+	BoringStoriesUserKey KeyboardKey = "Расскажи что-нибудь заумное"
+	FunnyStoriesUserKey  KeyboardKey = "Сборник 'Моя девушка тупень'"
 )
 
 const (
-	PhrasesValue KeyboardValue = "Фраза"
-	FactsValue KeyboardValue = "Факт"
-	BoringStoriesValue KeyboardValue = "Заумное"
-	FunnyStoriesValue KeyboardValue = "История"
+	PhrasesUserValue       KeyboardValue = "Фраза"
+	FactsUserValue         KeyboardValue = "Факт"
+	BoringStoriesUserValue KeyboardValue = "Заумное"
+	FunnyStoriesUserValue  KeyboardValue = "История"
 )
-
