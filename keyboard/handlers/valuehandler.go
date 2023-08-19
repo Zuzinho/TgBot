@@ -11,13 +11,13 @@ import (
 
 func UserHandler(value values.KeyboardValue) (*strings.Reader, error) {
 	switch value {
-	case values.PhrasesValue:
+	case values.PhrasesUserValue:
 		return phrase.Phrase()
-	case values.FactsValue:
+	case values.FactsUserValue:
 		return fact.Fact()
-	case values.BoringStoriesValue:
+	case values.BoringStoriesUserValue:
 		return boringstory.Story()
-	case values.FunnyStoriesValue:
+	case values.FunnyStoriesUserValue:
 		return funnystory.Story()
 	default:
 		return nil, NewNoHandlerError(value)
