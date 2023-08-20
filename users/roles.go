@@ -5,15 +5,15 @@ type Role string
 const (
 	Admin        Role = "Admin"
 	User         Role = "User"
-	UnwantedUser      = "Unwanted user"
+	UnwantedUser Role = "Unwanted user"
 )
 
-var roleByUser = map[string]Role{
+var roleByUser = map[UserName]Role{
 	Alena:  User,
 	Nikita: User,
 }
 
-func GetRole(userName string) Role {
+func GetRole(userName UserName) Role {
 	if r, ok := roleByUser[userName]; ok {
 		return r
 	} else {
