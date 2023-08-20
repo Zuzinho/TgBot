@@ -28,11 +28,11 @@ func main() {
 	for update := range updates {
 		if update.Message != nil {
 			sentMsg := update.Message
-			firstName := sentMsg.Chat.FirstName
-			log.Printf("User %s sent message with text '%s'", firstName, sentMsg.Text)
-			switch users.GetRole(firstName) {
+			userName := sentMsg.Chat.UserName
+			log.Printf("User %s sent message with text '%s'", userName, sentMsg.Text)
+			switch users.GetRole(users.UserName(userName)) {
 			case users.User:
-				log.Printf("User %s has role 'User'", firstName)
+				log.Printf("User %s has role 'User'", userName)
 				if !isStart {
 					msg := api.NewMessage(sentMsg.Chat.ID, "Привет")
 					msg.ReplyMarkup = values.UserKeyboard()
@@ -47,18 +47,18 @@ func main() {
 					errlog.LogOnErr(err)
 				}
 			case users.Admin:
-				log.Printf("User %s has role 'Admin'", firstName)
+				log.Printf("User %s has role 'Admin'", userName)
 				msg := api.NewMessage(sentMsg.Chat.ID, "Здраствуйте, хозяин")
 				_, err = bot.Send(msg)
 				errlog.LogOnErr(err)
 			}
 		} else if update.CallbackQuery != nil {
 			sentQuery := update.CallbackQuery
-			firstName := sentQuery.Message.Chat.FirstName
-			log.Printf("User %s sent query with data '%s'", firstName, sentQuery.Data)
-			switch users.GetRole(sentQuery.Message.Chat.FirstName) {
+			userName := sentQuery.Message.Chat.UserName
+			log.Printf("User %s sent query with data '%s'", userName, sentQuery.Data)
+			switch users.GetRole(users.UserName(userName)) {
 			case users.User:
-				log.Printf("User %s has role 'User'", firstName)
+				log.Printf("User %s has role 'User'", userName)
 
 				callback := api.NewCallback(sentQuery.ID, sentQuery.Data)
 				_, err := bot.AnswerCallbackQuery(callback)
@@ -69,7 +69,7 @@ func main() {
 				for _, msg := range msgSlice {
 					_, err = bot.Send(*msg)
 					errlog.LogOnErr(err)
-					log.Printf("Message '%s' was sent to user %s", msg.Text, firstName)
+					log.Printf("Message '%s' was sent to user %s", msg.Text, userName)
 					time.Sleep(time.Second)
 				}
 				lastMsg := api.NewMessage(sentQuery.Message.Chat.ID, "Еще?")
