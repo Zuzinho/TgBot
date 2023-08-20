@@ -1,6 +1,8 @@
 package users
 
+type UserName string
+
 const (
-	Alena  = "Alenka18"
-	Nikita = "Zuza"
+	Alena  UserName = "Alenka18"
+	Nikita UserName = "Zuzinho"
 )
