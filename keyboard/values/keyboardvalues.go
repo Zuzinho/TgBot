@@ -17,3 +17,21 @@ const (
 	BoringStoriesUserValue KeyboardValue = "Заумное"
 	FunnyStoriesUserValue  KeyboardValue = "История"
 )
+
+const (
+	StatisticAdminKey       KeyboardKey = "Получить общую статистику"
+	StatisticSinceAdminKey  KeyboardKey = "Получить статистику с последнего раза"
+	StatisticPhraseAdminKey KeyboardKey = "Получить статистику по 'Фраза'"
+	StatisticFactAdminKey   KeyboardKey = "Получить статистику по 'Факт'"
+	StatisticBoringAdminKey KeyboardKey = "Получить статистику по 'Заумное'"
+	StatisticFunnyAdminKey  KeyboardKey = "Получить статистику по 'История'"
+)
+
+const (
+	StatisticAdminValue       KeyboardValue = "Статистика"
+	StatisticSinceAdminValue  KeyboardValue = "Последняя статистика"
+	StatisticPhraseAdminValue KeyboardValue = "Статистика 'Фраза'"
+	StatisticFactAdminValue   KeyboardValue = "Статистика 'Факт'"
+	StatisticBoringAdminValue KeyboardValue = "Статистика 'Заумное'"
+	StatisticFunnyAdminValue  KeyboardValue = "Статистика 'История'"
+)
