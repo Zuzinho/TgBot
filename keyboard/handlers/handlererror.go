@@ -17,5 +17,5 @@ func NewNoHandlerError(value values.KeyboardValue) NoHandlerError {
 }
 
 func (err NoHandlerError) String() string {
-	return fmt.Sprintf("No handler for such keyboard value as '%d' or its one is unable", err.value)
+	return fmt.Sprintf("No handler for such keyboard value as '%s' or its one is unable", err.value)
 }
