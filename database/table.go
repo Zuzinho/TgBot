@@ -1,35 +1,23 @@
 package database
 
-import "fmt"
-
 type TableName string
 
 const (
-	PhrasesTableName       TableName = "phrases"
-	BoringStoriesTableName TableName = "boring_stories"
-	FunnyStoriesTableName  TableName = "funny_stories"
+	PhrasesTableName        TableName = "phrases"
+	BoringStoriesTableName  TableName = "boring_stories"
+	FunnyStoriesTableName   TableName = "funny_stories"
+	DataTypesTableName      TableName = "data_types"
+	RolesTableName          TableName = "roles"
+	UsersTableName          TableName = "users"
+	UsersStatisticTableName TableName = "users_statistic"
 )
 
 func (t TableName) IsValid() bool {
-	switch t {
-	case PhrasesTableName, BoringStoriesTableName, FunnyStoriesTableName:
-		return true
-	default:
-		return false
-	}
+	return (t == PhrasesTableName) || (t == BoringStoriesTableName) ||
+		(t == FunnyStoriesTableName) || (t == DataTypesTableName) ||
+		(t == RolesTableName) || (t == UsersTableName) || (t == UsersStatisticTableName)
 }
 
-type NoTableError struct {
-	error
-	table TableName
-}
-
-func (err NoTableError) String() string {
-	return fmt.Sprintf("no table %s in database", err.table)
-}
-
-func NewNoTableError(table TableName) NoTableError {
-	return NoTableError{
-		table: table,
-	}
+func (t TableName) IsAccessedForUser() bool {
+	return (t == PhrasesTableName) || (t == BoringStoriesTableName) || (t == FunnyStoriesTableName)
 }
