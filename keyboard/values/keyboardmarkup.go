@@ -31,7 +31,7 @@ func AdminKeyboard() api.InlineKeyboardMarkup {
 		),
 		api.NewInlineKeyboardRow(
 			api.NewInlineKeyboardButtonData(string(StatisticPhraseAdminKey), string(StatisticPhraseAdminValue)),
-			api.NewInlineKeyboardButtonData(string(StatisticFactAdminKey), string(StatisticFactAdminKey)),
+			api.NewInlineKeyboardButtonData(string(StatisticFactAdminKey), string(StatisticFactAdminValue)),
 		),
 		api.NewInlineKeyboardRow(
 			api.NewInlineKeyboardButtonData(string(StatisticBoringAdminKey), string(StatisticBoringAdminValue)),
