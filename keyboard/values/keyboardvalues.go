@@ -21,10 +21,10 @@ const (
 const (
 	StatisticAdminKey       KeyboardKey = "Получить общую статистику"
 	StatisticSinceAdminKey  KeyboardKey = "Получить статистику с последнего раза"
-	StatisticPhraseAdminKey KeyboardKey = "Получить статистику по 'Фраза'"
-	StatisticFactAdminKey   KeyboardKey = "Получить статистику по 'Факт'"
-	StatisticBoringAdminKey KeyboardKey = "Получить статистику по 'Заумное'"
-	StatisticFunnyAdminKey  KeyboardKey = "Получить статистику по 'История'"
+	StatisticPhraseAdminKey KeyboardKey = "Статистика 'Фраза'"
+	StatisticFactAdminKey   KeyboardKey = "Статистика 'Факт'"
+	StatisticBoringAdminKey KeyboardKey = "Статистика 'Заумное'"
+	StatisticFunnyAdminKey  KeyboardKey = "Статистика 'История'"
 )
 
 const (
