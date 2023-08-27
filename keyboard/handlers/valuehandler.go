@@ -23,3 +23,7 @@ func UserHandler(value values.KeyboardValue) (*strings.Reader, error) {
 		return nil, NewNoHandlerError(value)
 	}
 }
+
+func AdminHandler(value values.KeyboardValue) (*strings.Reader, error) {
+	return nil, nil
+}
