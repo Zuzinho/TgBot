@@ -1,6 +1,8 @@
 package main
 
 import (
+	"ZuzinhoBot/botapi/messages"
+	"ZuzinhoBot/database/insertor"
 	"ZuzinhoBot/env"
 	"ZuzinhoBot/errlog"
 	"ZuzinhoBot/keyboard/handlers"
@@ -21,62 +23,91 @@ func main() {
 
 	updates, err := bot.GetUpdatesChan(u)
 
-	isStart := false
+	isStarted := false
 
 	errlog.LogOnErr(err)
 
 	for update := range updates {
-		if update.Message != nil {
-			sentMsg := update.Message
-			userName := sentMsg.Chat.UserName
-			log.Printf("User %s sent message with text '%s'", userName, sentMsg.Text)
-			switch users.GetRole(users.UserName(userName)) {
-			case users.User:
-				log.Printf("User %s has role 'User'", userName)
-				if !isStart {
-					msg := api.NewMessage(sentMsg.Chat.ID, "Привет")
-					msg.ReplyMarkup = values.UserKeyboard()
-
-					_, err = bot.Send(msg)
-					errlog.LogOnErr(err)
-					isStart = true
-				} else {
-					msg := api.NewMessage(sentMsg.Chat.ID, "Нажми на какую-нибудь кнопку")
-
-					_, err = bot.Send(msg)
-					errlog.LogOnErr(err)
+		if msg := update.Message; msg != nil {
+			var role users.Role
+			userName := msg.Chat.UserName
+			log.Printf("User '%s' sent message '%s'", userName, msg.Text)
+			if chatId := msg.Chat.ID; msg.Text == "/start" {
+				err = insertor.InsertUnwantedUser(chatId, userName)
+				errlog.LogOnErr(err)
+				role = users.UnwantedUser
+			} else {
+				role, err = users.NewRole(chatId, userName)
+				if err != nil {
+					log.Println(err)
+					continue
 				}
-			case users.Admin:
-				log.Printf("User %s has role 'Admin'", userName)
-				msg := api.NewMessage(sentMsg.Chat.ID, "Здраствуйте, хозяин")
-				_, err = bot.Send(msg)
+			}
+
+			log.Printf("User '%s' has role '%s'", userName, role)
+
+			if chatId := msg.Chat.ID; !isStarted {
+				firstMsg, err := messages.FirstMessage(role, chatId)
+				if err != nil {
+					log.Println(err)
+					continue
+				}
+
+				_, err = bot.Send(*firstMsg)
+				errlog.LogOnErr(err)
+				isStarted = true
+			} else {
+				helpMsg, err := messages.HelpMessage(role, chatId)
+				if err != nil {
+					log.Println(err)
+					continue
+				}
+
+				_, err = bot.Send(*helpMsg)
 				errlog.LogOnErr(err)
 			}
-		} else if update.CallbackQuery != nil {
-			sentQuery := update.CallbackQuery
-			userName := sentQuery.Message.Chat.UserName
-			log.Printf("User %s sent query with data '%s'", userName, sentQuery.Data)
-			switch users.GetRole(users.UserName(userName)) {
-			case users.User:
-				log.Printf("User %s has role 'User'", userName)
 
-				callback := api.NewCallback(sentQuery.ID, sentQuery.Data)
-				_, err := bot.AnswerCallbackQuery(callback)
-				errlog.LogOnErr(err)
-				msgSlice, err := handlers.HandleUserKeyboard(values.KeyboardValue(sentQuery.Data), sentQuery.Message.Chat.ID)
-				errlog.LogOnErr(err)
+			continue
+		}
 
-				for _, msg := range msgSlice {
-					_, err = bot.Send(*msg)
-					errlog.LogOnErr(err)
-					log.Printf("Message '%s' was sent to user %s", msg.Text, userName)
-					time.Sleep(time.Second)
-				}
-				lastMsg := api.NewMessage(sentQuery.Message.Chat.ID, "Еще?")
-				lastMsg.ReplyMarkup = values.UserKeyboard()
-				_, err = bot.Send(lastMsg)
-				errlog.LogOnErr(err)
+		if query := update.CallbackQuery; query != nil {
+			userName := query.Message.Chat.UserName
+			chatId := query.Message.Chat.ID
+			value := values.KeyboardValue(query.Data)
+
+			callback := api.NewCallback(query.ID, query.Data)
+			_, err = bot.AnswerCallbackQuery(callback)
+			errlog.LogOnErr(err)
+
+			log.Printf("User '%s' sent query with data '%s'", userName, value)
+
+			role, err := users.NewRole(chatId, userName)
+			if err != nil {
+				log.Println(err)
+				continue
 			}
+			log.Printf("User '%s' has role '%s'", userName, role)
+
+			msgSlice, err := handlers.HandleKeyboard(value, chatId, role)
+			errlog.LogOnErr(err)
+
+			for _, msg := range msgSlice {
+				log.Printf("Sent message '%s' to user '%s'", msg.Text, userName)
+				_, err = bot.Send(*msg)
+				errlog.LogOnErr(err)
+				time.Sleep(1500 * time.Millisecond)
+			}
+
+			lastMsg, err := messages.LastMessage(role, chatId)
+			if err != nil {
+				log.Println(err)
+				continue
+			}
+
+			_, err = bot.Send(*lastMsg)
+			errlog.LogOnErr(err)
+
+			continue
 		}
 	}
 }
