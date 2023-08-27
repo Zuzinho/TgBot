@@ -7,7 +7,7 @@ import (
 )
 
 func Phrase() (*strings.Reader, error) {
-	phrase, err := selector.Select(database.PhrasesTableName)
+	phrase, err := selector.SelectStory(database.PhrasesTableName)
 	if err != nil {
 		return nil, err
 	}

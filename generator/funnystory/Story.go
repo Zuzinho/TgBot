@@ -7,7 +7,7 @@ import (
 )
 
 func Story() (*strings.Reader, error) {
-	story, err := selector.Select(database.FunnyStoriesTableName)
+	story, err := selector.SelectStory(database.FunnyStoriesTableName)
 	if err != nil {
 		return nil, err
 	}
