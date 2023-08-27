@@ -7,9 +7,13 @@ import (
 	"log"
 )
 
-func Select(table database.TableName) (value string, err error) {
+func SelectStory(table database.TableName) (value string, err error) {
 	if !table.IsValid() {
 		return "", database.NewNoTableError(table)
+	}
+
+	if !table.IsAccessedForUser() {
+		return "", database.NewNotAccessedTableError(table)
 	}
 
 	conn, err := pgx.Connect(env.ConnConfig)
@@ -40,4 +44,18 @@ func Select(table database.TableName) (value string, err error) {
 	log.Printf("From table '%s' got story - %s", table, value)
 
 	return value, nil
+}
+
+func SelectUserRole(chatId int64, userName string) (role int, err error) {
+	conn, err := pgx.Connect(env.ConnConfig)
+	if err != nil {
+		return
+	}
+	defer conn.Close()
+
+	err = conn.QueryRow("select role from users where id = $1 and name = $2", chatId, userName).Scan(&role)
+
+	log.Printf("Got from table 'users' role %d", role)
+
+	return
 }
