@@ -13,16 +13,16 @@ func init() {
 	roleMap = make(roleMapType)
 }
 
-func (mp roleMapType) Add(chatId int64, userName string, role Role) {
+func AddRole(chatId int64, userName string, role Role) {
 	key := roleMapKey{chatId: chatId, userName: userName}
 
-	mp[key] = role
+	roleMap[key] = role
 }
 
-func (mp roleMapType) Get(chatId int64, userName string) (Role, bool) {
+func GetRole(chatId int64, userName string) (Role, bool) {
 	key := roleMapKey{chatId: chatId, userName: userName}
 
-	role, ok := mp[key]
+	role, ok := roleMap[key]
 
 	return role, ok
 }
