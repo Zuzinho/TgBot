@@ -3,7 +3,7 @@ package handlers
 import (
 	"ZuzinhoBot/database/othertype/statistictype"
 	"ZuzinhoBot/database/selector"
-	"ZuzinhoBot/generator/fact"
+	"ZuzinhoBot/factgenerator"
 	"ZuzinhoBot/keyboard/values"
 	"ZuzinhoBot/statistic"
 	"strings"
@@ -12,7 +12,7 @@ import (
 func UserHandler(value values.KeyboardValue) (*strings.Reader, error) {
 	switch value {
 	case values.FactsUserValue:
-		return fact.Fact()
+		return factgenerator.Fact()
 	case values.PhrasesUserValue, values.BoringStoriesUserValue, values.FunnyStoriesUserValue:
 		return selector.SelectStory(statistictype.DataType(value))
 	default:
