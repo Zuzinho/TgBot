@@ -12,13 +12,7 @@ func (err UnknownRoleError) String() string {
 	return fmt.Sprintf("unknown user role %d or %s", err.roleInt, err.roleRole)
 }
 
-func NewUnknownRoleErrorByInt(role int) UnknownRoleError {
-	return UnknownRoleError{
-		roleInt: role,
-	}
-}
-
-func NewUnknownRoleErrorByRole(role Role) UnknownRoleError {
+func NewUnknownRoleError(role Role) UnknownRoleError {
 	return UnknownRoleError{
 		roleRole: role,
 	}
