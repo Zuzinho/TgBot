@@ -20,11 +20,11 @@ func FirstMessage(role users.Role, chatId int64) (types.Message, error) {
 
 		return &msg, nil
 	case users.UnwantedUser:
-		msg := api.NewMessage(chatId, "Ты кто?\nЯ тебя знаю\nНичего тебе делать не буду")
+		msg := api.NewMessage(chatId, "Ты кто?\nЯ тебя не знаю\nНичего тебе делать не буду")
 
 		return &msg, nil
 	default:
-		return nil, users.NewUnknownRoleErrorByRole(role)
+		return nil, users.NewUnknownRoleError(role)
 	}
 }
 
@@ -39,7 +39,7 @@ func HelpMessage(role users.Role, chatId int64) (types.Message, error) {
 
 		return &msg, nil
 	default:
-		return nil, users.NewUnknownRoleErrorByRole(role)
+		return nil, users.NewUnknownRoleError(role)
 	}
 
 }
@@ -57,6 +57,6 @@ func LastMessage(role users.Role, chatId int64) (types.Message, error) {
 
 		return &msg, nil
 	default:
-		return nil, users.NewUnknownRoleErrorByRole(role)
+		return nil, users.NewUnknownRoleError(role)
 	}
 }
