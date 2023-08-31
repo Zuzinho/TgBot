@@ -30,8 +30,8 @@ const (
 const (
 	StatisticAdminValue       KeyboardValue = "Статистика"
 	StatisticSinceAdminValue  KeyboardValue = "Последняя статистика"
-	StatisticPhraseAdminValue KeyboardValue = "Статистика 'Фраза'"
-	StatisticFactAdminValue   KeyboardValue = "Статистика 'Факт'"
-	StatisticBoringAdminValue KeyboardValue = "Статистика 'Заумное'"
-	StatisticFunnyAdminValue  KeyboardValue = "Статистика 'История'"
+	StatisticPhraseAdminValue KeyboardValue = "Статистика Фраза"
+	StatisticFactAdminValue   KeyboardValue = "Статистика Факт"
+	StatisticBoringAdminValue KeyboardValue = "Статистика Заумное"
+	StatisticFunnyAdminValue  KeyboardValue = "Статистика История"
 )
