@@ -1,4 +1,4 @@
-package fact
+package factgenerator
 
 import (
 	"encoding/json"
