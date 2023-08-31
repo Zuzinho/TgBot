@@ -3,6 +3,7 @@ package main
 import (
 	"ZuzinhoBot/botapi/messages"
 	"ZuzinhoBot/database/insertor"
+	"ZuzinhoBot/database/othertype/statistictype"
 	"ZuzinhoBot/env"
 	"ZuzinhoBot/errlog"
 	"ZuzinhoBot/keyboard/handlers"
@@ -86,6 +87,7 @@ func main() {
 				log.Println(err)
 				continue
 			}
+
 			log.Printf("User '%s' has role '%s'", userName, role)
 
 			msgSlice, err := handlers.HandleKeyboard(value, chatId, role)
@@ -107,6 +109,8 @@ func main() {
 			_, err = bot.Send(*lastMsg)
 			errlog.LogOnErr(err)
 
+			err = insertor.InsertUserMessage(chatId, statistictype.DataType(value), time.Now())
+			errlog.LogOnErr(err)
 			continue
 		}
 	}
