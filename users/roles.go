@@ -2,7 +2,6 @@ package users
 
 import (
 	"ZuzinhoBot/database/selector"
-	"log"
 )
 
 type Role string
@@ -14,30 +13,19 @@ const (
 )
 
 func NewRole(chatId int64, userName string) (role Role, err error) {
-	role, exists := roleMap.Get(chatId, userName)
-	if exists {
-		log.Printf("Got from map role '%s'", role)
-
-		return role, nil
+	role, ok := GetRole(chatId, userName)
+	if ok {
+		return
 	}
 
-	id, err := selector.SelectUserRole(chatId, userName)
+	roleBD, err := selector.SelectUserRole(chatId, userName)
 	if err != nil {
 		return
 	}
 
-	switch id {
-	case 1:
-		role = UnwantedUser
-	case 2:
-		role = User
-	case 3:
-		role = Admin
-	default:
-		return "", NewUnknownRoleErrorByInt(id)
-	}
+	role = Role(roleBD)
 
-	roleMap.Add(chatId, userName, role)
+	AddRole(chatId, userName, role)
 
 	return
 }
